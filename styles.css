@@ -136,7 +136,7 @@ input.inline-text {
 .slot-time { color: var(--muted); font-weight: 400; font-size: .85rem; font-family: var(--body); }
 .slot-hint { color: var(--accent); font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
 
-.lc-head { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; }
+.lc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .6rem; }
 .lc-name { font-weight: 600; color: var(--navy); }
 .lc-lang { margin-left: .4rem; font-weight: 600; font-size: .78rem; color: var(--amber); white-space: nowrap; }
 .lc-time { margin-left: .4rem; font-weight: 600; font-size: .78rem; color: var(--accent); white-space: nowrap; }
@@ -149,14 +149,14 @@ input.inline-text {
 .lc-trig .trig.hit { color: #fff; background: var(--danger); }
 .ticket-row { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: .5rem; }
 .ticket-row label { flex: none; font-size: .82rem; font-weight: 600; color: var(--navy); }
-.ticket-row select { width: auto; flex: 1; font-size: .85rem; padding: .4rem .55rem; }
+.ticket-row select { width: auto; flex: 1; min-width: 0; font-size: .85rem; padding: .4rem .55rem; }
 .ticket-row .field-error { flex: 0 0 100%; margin-top: .3rem; }
 
 /* strefa „Twoje wybory” (tray) */
 .tray { list-style: none; margin: 0 0 .7rem; padding: 0; display: grid; gap: .45rem; }
 .tray-empty { color: var(--muted); font-style: italic; font-size: .9rem; padding: .5rem .2rem; }
 .tray-item {
-  display: flex; align-items: center; gap: .65rem;
+  display: flex; align-items: center; gap: .65rem; min-width: 0;
   border: 1px solid var(--accent); border-radius: var(--radius); padding: .55rem .65rem; background: #fff5f9;
 }
 .tray-item .prio {
@@ -230,4 +230,5 @@ footer p { margin: .25rem 0; }
   .draft-badge { font-size: .7rem; padding: .25rem .55rem; }
   .larp-card { flex-direction: column; align-items: stretch; }
   .larp-card .add { align-self: stretch; }
+  .tray-item { align-items: flex-start; }
 }
