@@ -11,9 +11,9 @@ This document covers both the system's architecture and reasoning (the
 rules, payload shape (the *what*). See the Deployment status section for
 what's actually live right now.
 
-**This is one of two repos.** This one (`larpsign-frontend`) is the static
+**This is one of two repos.** This one (`zapisy-krak-on-frontend`) is the static
 site. The submission backend lives in a separate repo,
-[`larpsign-backend`](https://github.com/Gandi24/larpsign-backend), so it can
+[`zapisy-krak-on-backend`](https://github.com/Gandi24/zapisy-krak-on-backend), so it can
 be forked/versioned independently — this document covers the whole system's
 architecture (both repos), since the two are meaningless without each other,
 but code changes to the backend happen over there, not here.
@@ -21,7 +21,7 @@ but code changes to the backend happen over there, not here.
 ## 1. Architecture overview
 
 ```
-larpsign-frontend (GitHub Pages, static)      larpsign-backend repo      Private GitHub repo
+zapisy-krak-on-frontend (GitHub Pages, static)      zapisy-krak-on-backend repo      Private GitHub repo
 ┌─────────────────────────────┐               ┌────────────────────┐    ┌───────────────────┐
 │ index.html (shell + consent)│               │ Code.gs             │    │ submissions/*.json │
 │ config.js  (public config)  │──POST text/──▶│ holds GH_TOKEN      │─PUT▶│ (audit trail via   │
@@ -33,9 +33,9 @@ larpsign-frontend (GitHub Pages, static)      larpsign-backend repo      Private
 ```
 
 Three deploy targets (two repos, three destinations), two trust boundaries:
-- **Frontend** (`larpsign-frontend`) is 100% static and public — no secrets,
+- **Frontend** (`zapisy-krak-on-frontend`) is 100% static and public — no secrets,
   no server-side logic, hostable on GitHub Pages with zero build step.
-- **Backend** (`larpsign-backend`'s `Code.gs`) is a single Google Apps Script
+- **Backend** (`zapisy-krak-on-backend`'s `Code.gs`) is a single Google Apps Script
   Web App whose only job is to hold a write-scoped GitHub token server-side
   and forward validated submissions as commits. It has no database, no auth
   of its own, no admin API.
@@ -88,7 +88,7 @@ Two Apps Script constraints shape this contract, not preference:
   success/failure is carried in the body as `{ ok: true, path }` or
   `{ ok: false, error }`. `interpretSubmitOutcome()` (`submit-outcome.js`) is
   the client-side function that reads this field; `buildSubmissionRequest()`
-  (`Code.gs`, in the `larpsign-backend` repo) is the server-side function that
+  (`Code.gs`, in the `zapisy-krak-on-backend` repo) is the server-side function that
   produces it. Both are pure — no `fetch`/DOM on the client side, no Apps
   Script globals on the server side — which is what makes them unit-testable
   (see the Non-functional requirements section).
@@ -129,7 +129,7 @@ function `buildSubmissionRequest(rawBody, deps)` — given the raw body plus
 injected time/randomness/base64-encoding/expected-secret, it returns either a
 rejection or the exact GitHub Contents API request to send (built from
 `submission` only). No Apps Script globals, so it's covered by
-`larpsign-backend`'s own `tests/build-submission-request.test.js` without a
+`zapisy-krak-on-backend`'s own `tests/build-submission-request.test.js` without a
 live deployment.
 
 **On success**: commits the payload as
@@ -625,7 +625,7 @@ have changed since the draft was saved).
   file(s) for that person).
 - **Public files contain no secrets**: `config.js` and `larps.json` are
   served publicly via GitHub Pages and must never carry tokens or
-  participant data — only `larpsign-backend`'s `Code.gs`'s `GH_TOKEN` (an
+  participant data — only `zapisy-krak-on-backend`'s `Code.gs`'s `GH_TOKEN` (an
   Apps Script Script Property) touches write credentials.
 - **No sync mechanism**: if Krak-ON's regulamin or official sign-on form
   change their wording later, this form's copy needs to move with it by
@@ -751,8 +751,8 @@ session doesn't have to rediscover them by reading code:
 | Change match % formula or scale bands | `likeliness()` / `likeLabel()` in `app.js` |
 | Change max picks per slot | `MAX_PICKS` in `app.js` |
 | Change submission schema | `collect()` in `app.js` **and** update this doc's Submission payload shape section + bump `schemaVersion` |
-| Change storage backend or add validation | `Code.gs` in the `larpsign-backend` repo |
-| Change the submit request/response contract | keep `submit-outcome.js` here and `buildSubmissionRequest()` in `larpsign-backend`'s `Code.gs` in sync — see the Request/response contract section, and update both repos |
+| Change storage backend or add validation | `Code.gs` in the `zapisy-krak-on-backend` repo |
+| Change the submit request/response contract | keep `submit-outcome.js` here and `buildSubmissionRequest()` in `zapisy-krak-on-backend`'s `Code.gs` in sync — see the Request/response contract section, and update both repos |
 | Add a results-review/casting tool | a script reading the cloned private submissions repo locally — see the Known gaps section |
 | Visual restyle | `styles.css` (CSS custom properties in `:root` drive the palette) |
 | Rebrand for a different event | replace `assets/krakon-logo.svg` and swap `.masthead`'s background/logo in `index.html`; `styles.css`'s `--accent`/`--navy` already happen to be Krak-ON's real brand colors (pink `#ec398b`, navy), not neutral defaults — pick your own if forking for another event |
@@ -765,13 +765,13 @@ session doesn't have to rediscover them by reading code:
 - **No backend required to test**: empty `submitEndpoint` degrades
   gracefully to file download (see the Request/response contract section).
 - **No terminal required to deploy**: both the frontend (fork + GitHub Pages
-  settings, this repo) and the backend (`larpsign-backend`'s `Code.gs`
+  settings, this repo) and the backend (`zapisy-krak-on-backend`'s `Code.gs`
   pasted into script.google.com) are set up entirely through web UIs — see
-  the README's Deploy section here and `larpsign-backend`'s own README.
+  the README's Deploy section here and `zapisy-krak-on-backend`'s own README.
 - **Automated tests, narrowly scoped**: `npm test` in each repo (Node's
   built-in test runner, no dependencies) covers `interpretSubmitOutcome()`
   (`submit-outcome.js`, here) and `buildSubmissionRequest()` (`Code.gs`, in
-  `larpsign-backend`) — the two pure functions on either side of the submit
+  `zapisy-krak-on-backend`) — the two pure functions on either side of the submit
   contract (see the Request/response contract section) — extracted
   specifically because the Apps Script migration added real branching logic
   (consent/JSON validation, error-code mapping). Both repos run this via

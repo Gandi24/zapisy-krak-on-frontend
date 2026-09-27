@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // Konfiguracja wdrożenia — edytuj ten plik, nie ruszaj reszty kodu.
 // Plik jest PUBLICZNY (serwuje go GitHub Pages). Nie wpisuj tu sekretów.
-// Token zapisu do GitHuba żyje wyłącznie w Google Apps Script (repo larpsign-backend,
+// Token zapisu do GitHuba żyje wyłącznie w Google Apps Script (repo zapisy-krak-on-backend,
 // plik Code.gs), jako Script Property — nigdy w tym pliku.
 // ---------------------------------------------------------------------------
 window.CONFIG = {
@@ -11,7 +11,7 @@ window.CONFIG = {
   // Ustaw na false, żeby zablokować formularz przed oficjalnym otwarciem
   // zapisów — pokaże się wtedy tylko komunikat z submissionsOpenAt zamiast
   // pól do wypełnienia.
-  submissionsOpen: true,
+  submissionsOpen: false,
   submissionsOpenAt: "1 października",
 
   // Link do strony z pełnymi opisami larpów i harmonogramem wydarzenia.
@@ -22,7 +22,10 @@ window.CONFIG = {
   // Dokąd trafiają zgłoszenia — adres Twojego wdrożenia Google Apps Script.
   // Przy testach lokalnych zostaw "" — formularz pozwoli pobrać odpowiedzi
   // jako plik JSON zamiast je wysyłać.
-  submitEndpoint: "https://script.google.com/macros/s/AKfycbwPydStEFqP53ADCyAevqTUzXyN4C5XXJSeT2B7mLMC1CnxiskRY4T8LV7VNIQL9sud5A/exec",
+  // PUSTE CELOWO: to nowe wdrożenie (zapisy-krak-on-backend) jeszcze nie ma
+  // własnego Apps Script Web App — patrz README §3. Nie wklejaj tu starego
+  // adresu z larpsign-backend, to inny, docelowo wygaszany backend.
+  submitEndpoint: "",
 
   // Ten sam ciąg znaków co SUBMIT_SECRET w Twoim Apps Script — musi się zgadzać.
   // WAŻNE: to NIE jest prawdziwy sekret. Plik jest publiczny, więc każdy kto
@@ -30,7 +33,9 @@ window.CONFIG = {
   // trafienia na adres Web Appki, nie chroni przed kimś, kto celowo czyta ten
   // plik. W sam raz na krótkotrwałe zapisy na festiwal; jeśli potrzebujesz
   // realnej ochrony (np. przed spamem), to inny temat (patrz DESIGN.md).
-  submitSecret: "cRA5VFM3q4IHo0IpOTpZfOOSeqAOtZQV",
+  // Wygenerowany fabrycznie dla tego wdrożenia — wklej dokładnie tę samą
+  // wartość jako SUBMIT_SECRET w nowym Apps Script (README §3).
+  submitSecret: "W8dckStzr0ZhIEeM2Svg1E-5okF_7pDX",
 
   // RODO — administrator danych. Nazwa dokładnie jak w zgodzie ogólnej
   // oficjalnego formularza zapisów Krak-ON ("Wyrażam zgodę na przetwarzanie

@@ -235,7 +235,7 @@ result = {
     "timeslots": [slots[sid] for sid, _, _ in SLOT_INFO.values()],
 }
 
-out_path = "larps_new.json"  # review the diff against larpsign-frontend/larps.json before replacing it
+out_path = "larps_new.json"  # review the diff against zapisy-krak-on-frontend/larps.json before replacing it
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
 print("wrote", out_path)

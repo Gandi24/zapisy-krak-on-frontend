@@ -1,5 +1,10 @@
 # Zapisy na larpy (LARP sign-on)
 
+The live sign-on form for **Krak-ON 2026**, served at
+[zapisy.krak-on.info](https://zapisy.krak-on.info). Built from the open-source
+[**larpsign-frontend**](https://github.com/Gandi24/larpsign-frontend) template —
+running your own event's sign-on form starts there, not here.
+
 A static, **Polish-language** sign-up form that guides players to the larps they'll
 enjoy — even if they never read the programme. The flow:
 
@@ -23,7 +28,7 @@ anywhere until you actually submit.
 This repo is the **frontend only** — 100% static, hosted on **GitHub Pages**.
 Submissions are stored in a **private GitHub repo** via a small **Google Apps
 Script Web App**, which lives in a separate repo:
-[**larpsign-backend**](https://github.com/Gandi24/larpsign-backend). Setting
+[**zapisy-krak-on-backend**](https://github.com/Gandi24/zapisy-krak-on-backend). Setting
 the whole thing up — both repos — takes **no terminal, no CLI, and no new
 unfamiliar platform**: everything is clicking through GitHub's and Google's
 own web UIs, and both are free at festival scale. It is **GDPR-aware**:
@@ -31,7 +36,7 @@ explicit opt-in consent, a privacy notice (controller, purpose, storage),
 and an erasure contact.
 
 ```
-larpsign-frontend (this repo, GitHub Pages)   larpsign-backend repo          Private GitHub repo
+zapisy-krak-on-frontend (this repo, GitHub Pages)   zapisy-krak-on-backend repo          Private GitHub repo
 ┌─────────────────────────────┐               ┌────────────────────┐        ┌───────────────────┐
 │ index.html (shell + consent)│               │ Code.gs             │        │ submissions/*.json │
 │ config.js  (public config)  │──POST text/──▶│ (deployed as an     │──PUT──▶│ (audit trail via   │
@@ -47,7 +52,7 @@ A GitHub write-token in client-side JS is readable by anyone who visits the page
 and GitHub auto-revokes tokens it finds in repos. Apps Script keeps the token
 server-side, in a Script Property, never in code. The browser only ever talks to
 the Apps Script Web App — see
-[larpsign-backend](https://github.com/Gandi24/larpsign-backend) for that side.
+[zapisy-krak-on-backend](https://github.com/Gandi24/zapisy-krak-on-backend) for that side.
 
 ## Files
 
@@ -63,7 +68,7 @@ the Apps Script Web App — see
 | `tests/`                    | Node tests for `submit-outcome.js` (`npm test`) — nothing else in this repo is tested |
 
 The Apps Script backend (`Code.gs`) and its own tests live in the separate
-[larpsign-backend](https://github.com/Gandi24/larpsign-backend) repo, not here.
+[zapisy-krak-on-backend](https://github.com/Gandi24/zapisy-krak-on-backend) repo, not here.
 
 ## 1. Try it locally (no backend)
 
@@ -77,31 +82,37 @@ answers as a `.json` file instead of sending them — handy for testing.
 
 ## 2. Deploy the frontend to GitHub Pages
 
-1. Fork this repo (or use it as a template) — e.g. into `<you>/larpsign-frontend`.
+1. Fork this repo (or use it as a template) — e.g. into `<you>/zapisy-krak-on-frontend`.
 2. Repo → **Settings → Pages** → Source: `main` / root → Save.
-3. Your form is at `https://<you>.github.io/larpsign-frontend/`.
+3. Your form is at `https://<you>.github.io/zapisy-krak-on-frontend/`.
 
 > Note: `config.js` and `larps.json` are public — that's fine for the event
 > data and settings, but see the caveat on `submitSecret` in step 3: it's a
 > *deterrent*, not a real secret, precisely because this file is public.
 
+`config.js`'s `submissionsOpen` (default `true`) gates the submit action
+without hiding the form — set it to `false` and set `submissionsOpenAt` to a
+short date string (e.g. `"1 października"`) to let people browse and fill
+the form ahead of time while blocking the actual send, with both the reason
+and the date shown to them.
+
 ## 3. Deploy the submission backend
 
 The backend is a separate repo, deployed separately:
-[**larpsign-backend**](https://github.com/Gandi24/larpsign-backend). Fork it
+[**zapisy-krak-on-backend**](https://github.com/Gandi24/zapisy-krak-on-backend). Fork it
 and follow its README — no terminal needed there either, same "click through
 web UIs" story, about five minutes. It ends with a Web App URL and a shared
 secret you made up.
 
 Once you have both, paste them into **this** repo's `config.js` →
-`submitEndpoint` and `submitSecret` (must match `larpsign-backend`'s
+`submitEndpoint` and `submitSecret` (must match `zapisy-krak-on-backend`'s
 `SUBMIT_SECRET` exactly), then commit + push so Pages redeploys. Submissions
 will then land as files under `submissions/` in the private repo you set up
-while following larpsign-backend's instructions.
+while following zapisy-krak-on-backend's instructions.
 
 `submitSecret` is **not real security** — `config.js` is a public file, so
 anyone can read it. It only deters casual/automated abuse of the endpoint;
-see larpsign-backend's README ("Shared secret") for exactly what it does and
+see zapisy-krak-on-backend's README ("Shared secret") for exactly what it does and
 doesn't protect against, and why that's still worth doing for a short-lived
 festival form.
 
@@ -208,7 +219,7 @@ npm test
 
 This covers `interpretSubmitOutcome()` in `submit-outcome.js` — the client
 side of the submit contract. The server side (`buildSubmissionRequest()`) has
-its own tests in the [larpsign-backend](https://github.com/Gandi24/larpsign-backend)
+its own tests in the [zapisy-krak-on-backend](https://github.com/Gandi24/zapisy-krak-on-backend)
 repo. Everything else in this project is still verified manually (open it in
 a browser), matching how the rest of the codebase works. CI
 (`.github/workflows/test.yml`) runs `npm test` on every push and PR.

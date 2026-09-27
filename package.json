@@ -1,5 +1,5 @@
 {
-  "name": "larp-signon",
+  "name": "zapisy-krak-on-frontend",
   "private": true,
   "description": "No build step, no runtime dependencies — this file exists only to document how to run the tests.",
   "scripts": {
