@@ -22,10 +22,7 @@ window.CONFIG = {
   // Dokąd trafiają zgłoszenia — adres Twojego wdrożenia Google Apps Script.
   // Przy testach lokalnych zostaw "" — formularz pozwoli pobrać odpowiedzi
   // jako plik JSON zamiast je wysyłać.
-  // PUSTE CELOWO: to nowe wdrożenie (zapisy-krak-on-backend) jeszcze nie ma
-  // własnego Apps Script Web App — patrz README §3. Nie wklejaj tu starego
-  // adresu z larpsign-backend, to inny, docelowo wygaszany backend.
-  submitEndpoint: "",
+  submitEndpoint: "https://script.google.com/macros/s/AKfycbyF3PbdipV82L2NCACGiuDRpZqcXzp6Xmr5KhCfVNMbmEROij-LTFP_t2-HZnVsJ_Pz0g/exec",
 
   // Ten sam ciąg znaków co SUBMIT_SECRET w Twoim Apps Script — musi się zgadzać.
   // WAŻNE: to NIE jest prawdziwy sekret. Plik jest publiczny, więc każdy kto
