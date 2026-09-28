@@ -156,10 +156,11 @@ Larps in a slot are sorted by this, so the best matches float to the top.
 
 ```jsonc
 {
-  "meta": { "event", "submittedAt", "schemaVersion": 8 },
+  "meta": { "event", "submittedAt", "schemaVersion": 9 },
   "identity": { "firstName", "lastName", "preferredAddress", "email", "phone", "birthdate" },
   "characterPreferences": ["Kobiece", ...],
   "wantsNpc": false,
+  "wantsStandin": false,   // "Komandos larpowy" — willing to fill in last-minute for a dropout
   "goldenTicket": { "priorities": ["<larp name>", ...] },   // 0-3, temporary feature
   "afterparty": { "friday": true, "saturday": false },      // plain optional booleans
   "consent": {

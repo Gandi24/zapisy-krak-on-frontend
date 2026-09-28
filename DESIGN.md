@@ -236,7 +236,9 @@ entries — not fine at meetup-registration-app scale).
    email, and phone number (all required); birthdate (required, for 18+
    verification); which character genders the player is willing to play,
    ticked from `larps.json → characterPreferences` (at least one required);
-   an optional "chcę zgłosić się jako NPC" checkbox.
+   an optional "chcę zgłosić się jako NPC" checkbox, and an optional
+   "Komandos larpowy" checkbox (willing to fill in last-minute for a
+   dropout).
 2. **Preferencje** — rate every `preferenceTags` entry on a 5-point scale,
    −2..+2: `Nie znoszę / Raczej nie / Obojętne / Lubię / Uwielbiam`. Defaults
    to 0 (neutral).
@@ -487,7 +489,7 @@ The whole form autosaves to `localStorage` (key `larpsign:draft:v1`) on every
 `input`/`change`, debounced ~600ms, with no manual save button — a button can
 be forgotten right before an accidental tab close; autosave can't be. On page
 load, a saved draft (if any) restores identity fields, ratings, triggers,
-character preferences, the NPC checkbox, Golden Ticket priorities, slot picks
+character preferences, the NPC and Komandos larpowy checkboxes, Golden Ticket priorities, slot picks
 + ticket tiers, and afterparty choices before `renderSlots()` runs.
 
 **Deliberately excluded from save/restore**: the consent checkboxes (general,
@@ -512,17 +514,18 @@ have changed since the draft was saved).
 
 ## 9. Submission payload shape
 
-**Submission payload** (`schemaVersion: 8`):
+**Submission payload** (`schemaVersion: 9`):
 
 ```jsonc
 {
-  "meta": { "event", "submittedAt" /* ISO */, "schemaVersion": 8 },
+  "meta": { "event", "submittedAt" /* ISO */, "schemaVersion": 9 },
   "identity": {
     "firstName", "lastName", "preferredAddress", "email", "phone",
     "birthdate" // "YYYY-MM-DD" from <input type=date>, no auto age-check
   },
   "characterPreferences": ["<characterPreferences string>", ...],
   "wantsNpc": false,
+  "wantsStandin": false, // "Komandos larpowy" — willing to fill in last-minute for a dropout
   "goldenTicket": { "priorities": ["<larp name>", ...] },  // 0-3 entries, empty selects dropped, order preserved
   "afterparty": {
     "friday": true,   // plain optional booleans — unchecked is a valid false

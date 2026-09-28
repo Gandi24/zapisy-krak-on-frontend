@@ -145,6 +145,7 @@ function serializeDraft() {
     triggers: getTriggers(),
     characterPreferences: getCharacterPreferences(),
     wantsNpc: $("#wants-npc").checked,
+    wantsStandin: $("#wants-standin").checked,
     goldenTicket: getGoldenTicketPriorities(),
     afterparty: {
       friday: $("#afterparty-friday").checked,
@@ -233,6 +234,7 @@ function restoreDraft() {
     if (el) el.checked = true;
   });
   $("#wants-npc").checked = !!draft.wantsNpc;
+  $("#wants-standin").checked = !!draft.wantsStandin;
   (draft.goldenTicket || []).forEach((name, i) => {
     const sel = $(`#golden-ticket-${i + 1}`);
     if (sel && name) sel.value = name;
@@ -709,7 +711,7 @@ function collect() {
   });
 
   return {
-    meta: { event: cfg.eventName || "", submittedAt: new Date().toISOString(), schemaVersion: 8 },
+    meta: { event: cfg.eventName || "", submittedAt: new Date().toISOString(), schemaVersion: 9 },
     identity: {
       firstName: $("#first-name").value.trim(),
       lastName: $("#last-name").value.trim(),
@@ -720,6 +722,7 @@ function collect() {
     },
     characterPreferences: getCharacterPreferences(),
     wantsNpc: $("#wants-npc").checked,
+    wantsStandin: $("#wants-standin").checked,
     goldenTicket: { priorities: getGoldenTicketPriorities() },
     afterparty: {
       friday: $("#afterparty-friday").checked,
