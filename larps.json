@@ -351,7 +351,14 @@
             "Morderstwo / zabójstwo",
             "Represje polityczne"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "sb_rano",
+      "name": "Sobota rano",
+      "time": "10:00–15:00 (5h)",
+      "larps": [
         {
           "name": "Starzy Przyjaciele",
           "players": 8,
@@ -374,14 +381,7 @@
             "Opętanie i utrata kontroli nad ciałem",
             "Krzyk"
           ]
-        }
-      ]
-    },
-    {
-      "id": "sb_rano",
-      "name": "Sobota rano",
-      "time": "10:00–15:00 (5h)",
-      "larps": [
+        },
         {
           "name": "Awatar: Rozdroża",
           "players": 12,
