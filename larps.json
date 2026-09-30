@@ -351,6 +351,21 @@
             "Morderstwo / zabójstwo",
             "Represje polityczne"
           ]
+        },
+        {
+          "name": "Nie ufaj tengu w onsenie yokai",
+          "players": 15,
+          "tags": [
+            "sensualnosc",
+            "tajemnica",
+            "folklor",
+            "orientalne"
+          ],
+          "triggers": [
+            "Śmierć",
+            "Morderstwo / zabójstwo",
+            "Ekspozycja ciała / bielizna"
+          ]
         }
       ]
     },
@@ -587,21 +602,6 @@
             "Tortury",
             "Rasizm",
             "Dyskryminacja"
-          ]
-        },
-        {
-          "name": "Nie ufaj tengu w onsenie yokai",
-          "players": 15,
-          "tags": [
-            "sensualnosc",
-            "tajemnica",
-            "folklor",
-            "orientalne"
-          ],
-          "triggers": [
-            "Śmierć",
-            "Morderstwo / zabójstwo",
-            "Ekspozycja ciała / bielizna"
           ]
         },
         {
