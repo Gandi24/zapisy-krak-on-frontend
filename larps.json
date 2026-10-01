@@ -483,26 +483,6 @@
           ]
         },
         {
-          "name": "Shadows of the forgotten",
-          "players": 20,
-          "language": "Angielski",
-          "tags": [
-            "folklor",
-            "relacje",
-            "emocje"
-          ],
-          "triggers": [
-            "Morderstwo / zabójstwo",
-            "Śmierć",
-            "Samobójstwo",
-            "Relacje patriarchalne",
-            "Zdrada",
-            "Utrata dziecka",
-            "Niechciana ciąża",
-            "Zemsta"
-          ]
-        },
-        {
           "name": "Sierpinsky 233",
           "players": 20,
           "tags": [
