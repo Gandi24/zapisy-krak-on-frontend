@@ -298,11 +298,17 @@ async function init() {
     ? `© ${new Date().getFullYear()} Festiwal Krak-ON. Pytania i prośby o usunięcie danych: ${cfg.controller.email}`
     : "";
 
-  if (cfg.submissionsOpen === false) {
+  if (cfg.noticeMessage) {
+    const notice = $("#submissions-closed-notice");
+    notice.textContent = cfg.noticeMessage;
+    notice.classList.add(cfg.submissionsOpen === false ? "err" : "ok");
+    notice.hidden = false;
+  } else if (cfg.submissionsOpen === false) {
     const notice = $("#submissions-closed-notice");
     notice.textContent =
       `Zapisy otworzą się ${cfg.submissionsOpenAt || "wkrótce"}. Formularz możesz ` +
       `wypełnić już teraz, ale wysyłka będzie możliwa dopiero po otwarciu zapisów.`;
+    notice.classList.add("err");
     notice.hidden = false;
   }
 
