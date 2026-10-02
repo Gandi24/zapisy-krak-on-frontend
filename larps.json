@@ -312,7 +312,11 @@
           "name": "Goodnight Miami",
           "players": 5,
           "tags": [
-            "groza"
+            "groza",
+            "emocje",
+            "katastrofa",
+            "reportaz",
+            "wspolczesnosc"
           ],
           "triggers": [
             "Śmierć",
@@ -675,7 +679,8 @@
           "name": "Na Dzień Świętego Kryspina!",
           "players": 20,
           "tags": [
-            "emocje"
+            "emocje",
+            "historia"
           ],
           "triggers": [
             "Śmierć",
