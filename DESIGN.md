@@ -182,10 +182,12 @@ entries — not fine at meetup-registration-app scale).
     {
       "id": "pt_wieczor", "name": "Piątek wieczór", "time": "18:00–22:00 (4h)",
       "larps": [
-        { "name": "La Candela", "players": 32,
+        { "name": "La Candela",
+          "availableSlots": { "female": 0, "male": 0, "unisex": 32 },
           "tags": ["taniec_ruch", "cialo", "emocje"],
           "triggers": ["Śmierć", "Żałoba", "Ciemność"] },
-        { "name": "Gra ludowa", "players": 14, "language": "Białoruski",
+        { "name": "Gra ludowa", "language": "Białoruski",
+          "availableSlots": { "female": 0, "male": 0, "unisex": 14 },
           "tags": ["historia", "komedia"], "triggers": [...] }
       ]
     }
@@ -201,9 +203,15 @@ entries — not fine at meetup-registration-app scale).
   matching/highlighting logic (`getTriggers()`, `triggersHTML()`) works
   exactly as it did with the old flat `triggers` list, unaware groups exist.
   Only the *catalogue's* rendering is grouped.
-- `larps[].players` (headcount / capacity) is captured but **not currently
-  used** by any matching, sorting, or limit logic — see the Known gaps
-  section.
+- `larps[].availableSlots` is `{ female, male, unisex }`: how many slots
+  are still **available** — locked to women, to men, or open to anyone —
+  after Golden Ticket holders were cast by hand. It is not the full cast.
+  This file is the **single source** for it — the backend's assignment
+  algorithm (`zapisy-krak-on-backend/scripts/assignment`) reads it from here
+  to fill seats, so edit it here only. The form shows it on every larp card
+  (`seatsHTML()` in `app.js`). All zeros means the larp is full: it shows a
+  "taken by Golden Ticket holders" note and can't be picked, and a saved
+  draft silently drops it.
 - `characterPreferences` is a flat string catalogue (like the old
   `triggers`), rendered as a checkbox group; the player's ticks are
   collected but not joined against any per-larp data — it's informational
@@ -227,8 +235,9 @@ entries — not fine at meetup-registration-app scale).
   `preferenceTags` (32 entries) and `triggerGroups` (11 groups, 77 triggers)
   were unified together with the organiser from that event's actual
   per-larp tag/trigger data (`_note` in `larps.json` records the source and
-  date), not guessed from titles. `players` is each larp's max headcount
-  from the organiser's sheet.
+  date), not guessed from titles. Each larp's `availableSlots` are
+  entered by the organiser: the cast from their sheet minus the Golden
+  Ticket holders already placed in it.
 
 ## 6. Form flow
 
@@ -238,7 +247,8 @@ entries — not fine at meetup-registration-app scale).
    ticked from `larps.json → characterPreferences` (at least one required);
    an optional "chcę zgłosić się jako NPC" checkbox, and an optional
    "Komandos larpowy" checkbox (willing to fill in last-minute for a
-   dropout).
+   dropout), and an optional "Wolontariusze" checkbox (willing to volunteer
+   at the festival while not playing any larp).
 2. **Preferencje** — rate every `preferenceTags` entry on a 5-point scale,
    −2..+2: `Nie znoszę / Raczej nie / Obojętne / Lubię / Uwielbiam`. Defaults
    to 0 (neutral).
@@ -254,21 +264,13 @@ entries — not fine at meetup-registration-app scale).
    (drag via ▲/▼, remove via ✕), and picks a **ticket tier** (required) from
    `larps.json → ticketTiers` for each picked larp. Adding/removing re-sorts
    the remaining list live.
-5. **Złoty Bilet** — optional, explicitly a temporary feature ("opcja
-   tymczasowa na ten sezon" in its own blurb). Three fixed-priority
-   `<select>`s (1st/2nd/3rd choice), each listing every larp across all 4
-   slots flattened together — independent of the player's own slot picks in
-   step 4. Not a drag-reorder tray: three fixed dropdowns is enough
-   structure for a single-use, likely-short-lived mechanic. No
-   duplicate-prevention across the three selects — picking the same larp
-   twice is harmless, the organiser just reads it as one choice.
-6. **Afterparty** — two independent, optional checkboxes ("Chcę wziąć udział
+5. **Afterparty** — two independent, optional checkboxes ("Chcę wziąć udział
    w afterparty w piątek"/"w sobotę"), independent of slot picks. This is the
    one place the form deliberately diverges from the official Krak-ON form's
    own tri-state Tak/Nie/Może control, in favor of a simpler plain-checkbox
    shape — a deliberate, standing choice, not a bug to "fix" back to match
    the official form.
-7. **Prywatność i zgoda** — five questions, each following one repeated
+6. **Prywatność i zgoda** — five questions, each following one repeated
    visual shape: a **bold** statement of what's being asked, then an
    *optional* supplementary section (an expandable `<details>` for the long
    official text, a plain paragraph, or nothing), then the *unbolded*
@@ -489,7 +491,7 @@ The whole form autosaves to `localStorage` (key `larpsign:draft:v1`) on every
 `input`/`change`, debounced ~600ms, with no manual save button — a button can
 be forgotten right before an accidental tab close; autosave can't be. On page
 load, a saved draft (if any) restores identity fields, ratings, triggers,
-character preferences, the NPC and Komandos larpowy checkboxes, Golden Ticket priorities, slot picks
+character preferences, the NPC, Komandos larpowy and Wolontariusze checkboxes, slot picks
 + ticket tiers, and afterparty choices before `renderSlots()` runs.
 
 **Deliberately excluded from save/restore**: the consent checkboxes (general,
@@ -514,11 +516,11 @@ have changed since the draft was saved).
 
 ## 9. Submission payload shape
 
-**Submission payload** (`schemaVersion: 9`):
+**Submission payload** (`schemaVersion: 10`):
 
 ```jsonc
 {
-  "meta": { "event", "submittedAt" /* ISO */, "schemaVersion": 9 },
+  "meta": { "event", "submittedAt" /* ISO */, "schemaVersion": 10 },
   "identity": {
     "firstName", "lastName", "preferredAddress", "email", "phone",
     "birthdate" // "YYYY-MM-DD" from <input type=date>, no auto age-check
@@ -526,7 +528,7 @@ have changed since the draft was saved).
   "characterPreferences": ["<characterPreferences string>", ...],
   "wantsNpc": false,
   "wantsStandin": false, // "Komandos larpowy" — willing to fill in last-minute for a dropout
-  "goldenTicket": { "priorities": ["<larp name>", ...] },  // 0-3 entries, empty selects dropped, order preserved
+  "wantsVolunteer": false, // "Wolontariusze" — willing to volunteer at the festival while not playing any larp
   "afterparty": {
     "friday": true,   // plain optional booleans — unchecked is a valid false
     "saturday": false
@@ -552,12 +554,25 @@ have changed since the draft was saved).
         "dislikes": ["<tag label>", ...]             // -2-rated tags on this larp
       }
     ]
-  }
+  },
+  // Readable names for every slot/tier in larps.json, for the confirmation
+  // email — the backend has no access to larps.json, so it reads them here.
+  "timeslotLabels": { "<slotId>": "<name> <time>", ... },
+  "ticketTierLabels": { "<tierId>": "<label>", ... }
 }
 ```
 
 ## 10. GDPR / consent
 
+- **Confirmation email is transactional, not marketing.** After a
+  submission is committed to GitHub, the backend emails the player a summary
+  of what was recorded (picks with timeslot and ticket names, NPC / Komandos
+  / Wolontariusze / afterparty choices, and the controller contact for
+  corrections or erasure). It's sent regardless of `consent.marketingEmail`,
+  because it only confirms the submission the player just made. Sent through
+  a Brevo transactional template — so Brevo processes players' email
+  addresses; the privacy notice must cover that. Data built by
+  `buildConfirmationEmailRequest()` in the backend's `Code.gs`.
 - **Lawful basis**: explicit opt-in consent, three checkboxes required,
   timestamped and stored with every submission — confirming the official
   RODO notice (`rodoNoticeRead`), the strefazajec.pl payment-processor
@@ -640,10 +655,16 @@ have changed since the draft was saved).
 These are absent by omission, not oversight — flagging them so a future
 session doesn't have to rediscover them by reading code:
 
-- **No capacity enforcement.** `larps.json → larps[].players` (headcount) is
-  parsed but never used. Nothing stops more players from prioritizing a larp
-  than it has seats; that reconciliation is implicitly left to the organiser
-  doing manual casting from the submitted priority lists.
+- **Confirmation email is best-effort.** It's sent only after the GitHub
+  commit succeeds, and a failed send never fails the submission — but there's
+  no retry, and the player isn't told it failed. Brevo's free plan quota
+  (300/day) could stop confirmations for the rest of a sign-up-rush day;
+  failures show in Apps Script's Executions log and Brevo's transactional
+  logs.
+- **Only full larps are blocked in the form.** A larp whose
+  `availableSlots` are all 0 can't be picked; otherwise
+  nothing stops more players from prioritizing a larp than it has seats —
+  seats are only enforced afterwards, by the backend's assignment algorithm.
 - **No cross-slot conflict detection.** Nothing ties timeslots to real
   wall-clock overlap or warns about anything beyond the 4-slot structure
   already defined.
@@ -722,7 +743,7 @@ session doesn't have to rediscover them by reading code:
   check inventory, or enforce the reference form's own rule that
   Social-ticket availability is capped by how many Support tickets were
   bought. If a real event needs that, it's a manual reconciliation the
-  organiser does from submitted data, same as capacity (`players`, above) —
+  organiser does from submitted data, same as capacity (`availableSlots`, above) —
   not logic this form implements.
 - **The tag/trigger vocabulary is a hand-curated unification, not a raw
   import or a guess.** `larps.json`'s `preferenceTags` (32) and
@@ -755,9 +776,11 @@ session doesn't have to rediscover them by reading code:
 | Change max picks per slot | `MAX_PICKS` in `app.js` |
 | Change submission schema | `collect()` in `app.js` **and** update this doc's Submission payload shape section + bump `schemaVersion` |
 | Change storage backend or add validation | `Code.gs` in the `zapisy-krak-on-backend` repo |
+| Change the confirmation email's wording or look | the transactional template in Brevo; the data it gets comes from `buildConfirmationEmailRequest()` in the backend's `Code.gs` (labels from `timeslotLabels`/`ticketTierLabels` in `collect()` here) |
 | Change the submit request/response contract | keep `submit-outcome.js` here and `buildSubmissionRequest()` in `zapisy-krak-on-backend`'s `Code.gs` in sync — see the Request/response contract section, and update both repos |
 | Add a results-review/casting tool | a script reading the cloned private submissions repo locally — see the Known gaps section |
 | Visual restyle | `styles.css` (CSS custom properties in `:root` drive the palette) |
+| Deploy any change to `app.js`, `submit-outcome.js`, `config.js` or `styles.css` | bump the `?v=` value on their tags in `index.html`, so browsers don't mix cached old files with new ones |
 | Rebrand for a different event | replace `assets/krakon-logo.svg` and swap `.masthead`'s background/logo in `index.html`; `styles.css`'s `--accent`/`--navy` already happen to be Krak-ON's real brand colors (pink `#ec398b`, navy), not neutral defaults — pick your own if forking for another event |
 
 ## 13. Non-functional requirements

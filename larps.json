@@ -310,7 +310,11 @@
       "larps": [
         {
           "name": "Goodnight Miami",
-          "players": 5,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 0
+          },
           "tags": [
             "groza",
             "emocje",
@@ -330,7 +334,11 @@
         },
         {
           "name": "La Candela",
-          "players": 32,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 32
+          },
           "time": "17:00–22:00 (5h)",
           "tags": [
             "taniec_ruch",
@@ -345,7 +353,11 @@
         },
         {
           "name": "Rękawiczki",
-          "players": 5,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 3
+          },
           "tags": [
             "wojna_okupacja",
             "trudne_wybory"
@@ -358,7 +370,11 @@
         },
         {
           "name": "Nie ufaj tengu w onsenie yokai",
-          "players": 15,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 12
+          },
           "tags": [
             "sensualnosc",
             "tajemnica",
@@ -380,7 +396,11 @@
       "larps": [
         {
           "name": "Starzy Przyjaciele",
-          "players": 8,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 6
+          },
           "tags": [
             "groza",
             "emocje",
@@ -403,12 +423,17 @@
         },
         {
           "name": "Awatar: Rozdroża",
-          "players": 12,
+          "availableSlots": {
+            "female": 4,
+            "male": 3,
+            "unisex": 4
+          },
           "tags": [
             "emocje",
             "polityka",
             "duchowosc",
-            "trudne_wybory"
+            "trudne_wybory",
+            "orientalne"
           ],
           "triggers": [
             "Śmierć bliskiej osoby",
@@ -418,7 +443,11 @@
         },
         {
           "name": "Duży John",
-          "players": 13,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 8
+          },
           "tags": [
             "cyberpunk",
             "tajemnica"
@@ -431,7 +460,11 @@
         },
         {
           "name": "Headline",
-          "players": 10,
+          "availableSlots": {
+            "female": 2,
+            "male": 4,
+            "unisex": 0
+          },
           "tags": [
             "emocje",
             "reportaz"
@@ -446,7 +479,11 @@
         },
         {
           "name": "Kult Bachusa i Astarte",
-          "players": 6,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 0
+          },
           "tags": [
             "wspolczesnosc",
             "emocje",
@@ -462,7 +499,11 @@
         },
         {
           "name": "Ortalion",
-          "players": 16,
+          "availableSlots": {
+            "female": 6,
+            "male": 10,
+            "unisex": 0
+          },
           "tags": [
             "realizm_osiedlowy",
             "przemiana"
@@ -488,7 +529,11 @@
         },
         {
           "name": "Sierpinsky 233",
-          "players": 20,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 18
+          },
           "tags": [
             "scifi",
             "prl"
@@ -507,7 +552,11 @@
       "larps": [
         {
           "name": "(A)Gnosis",
-          "players": 15,
+          "availableSlots": {
+            "female": 5,
+            "male": 5,
+            "unisex": 5
+          },
           "tags": [
             "duchowosc",
             "przemiana",
@@ -528,7 +577,11 @@
         },
         {
           "name": "Better love story than Twilight",
-          "players": 12,
+          "availableSlots": {
+            "female": 0,
+            "male": 1,
+            "unisex": 9
+          },
           "tags": [
             "swiat_mroku",
             "romans"
@@ -543,7 +596,11 @@
         },
         {
           "name": "Drugi raz pierwszy raz",
-          "players": 28,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 28
+          },
           "tags": [
             "taniec_ruch",
             "romans",
@@ -560,7 +617,11 @@
         },
         {
           "name": "Heptameron",
-          "players": 7,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 7
+          },
           "tags": [
             "emocje",
             "katastrofa"
@@ -572,7 +633,11 @@
         },
         {
           "name": "Nie nasza wojna",
-          "players": 12,
+          "availableSlots": {
+            "female": 5,
+            "male": 3,
+            "unisex": 2
+          },
           "tags": [
             "emocje",
             "wojna_okupacja",
@@ -590,7 +655,11 @@
         },
         {
           "name": "Star Wars: Cienie Pokoju",
-          "players": 12,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 12
+          },
           "tags": [
             "polityka",
             "scifi"
@@ -606,7 +675,11 @@
         },
         {
           "name": "Voyager 3: wersja reżyserska",
-          "players": 8,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 0
+          },
           "tags": [
             "scifi",
             "trudne_wybory"
@@ -617,7 +690,11 @@
         },
         {
           "name": "Ławnicy",
-          "players": 10,
+          "availableSlots": {
+            "female": 2,
+            "male": 4,
+            "unisex": 3
+          },
           "tags": [
             "emocje",
             "tajemnica",
@@ -644,7 +721,11 @@
       "larps": [
         {
           "name": "Gra ludowa",
-          "players": 14,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 14
+          },
           "language": "Białoruski",
           "tags": [
             "historia",
@@ -660,7 +741,11 @@
         },
         {
           "name": "Hipisi, pigułki i przytulanie",
-          "players": 11,
+          "availableSlots": {
+            "female": 4,
+            "male": 4,
+            "unisex": 0
+          },
           "tags": [
             "duchowosc",
             "walka",
@@ -677,7 +762,11 @@
         },
         {
           "name": "Na Dzień Świętego Kryspina!",
-          "players": 20,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 20
+          },
           "tags": [
             "emocje",
             "historia"
@@ -691,7 +780,11 @@
         },
         {
           "name": "Nienawistna Ósemka",
-          "players": 8,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 5
+          },
           "tags": [
             "tajemnica",
             "fantasy"
@@ -706,7 +799,11 @@
         },
         {
           "name": "River Tale czyli są w zwierzyńcu rachunki krzywd",
-          "players": 12,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 8
+          },
           "tags": [
             "trudne_wybory",
             "katastrofa",
@@ -724,7 +821,11 @@
         },
         {
           "name": "Rój",
-          "players": 22,
+          "availableSlots": {
+            "female": 0,
+            "male": 0,
+            "unisex": 19
+          },
           "tags": [
             "taniec_ruch",
             "wspolnota",

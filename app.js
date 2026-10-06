@@ -15,6 +15,7 @@ const selections = {};
 const REQUIRED_TEXT_FIELDS = ["first-name", "last-name", "preferred-address", "email", "phone", "birthdate"];
 const touched = new Set();
 let submitAttempted = false;
+let submitFailures = 0;
 
 const REQUIRED_FIELD_MESSAGES = {
   "first-name": "Podaj imię.",
@@ -146,7 +147,7 @@ function serializeDraft() {
     characterPreferences: getCharacterPreferences(),
     wantsNpc: $("#wants-npc").checked,
     wantsStandin: $("#wants-standin").checked,
-    goldenTicket: getGoldenTicketPriorities(),
+    wantsVolunteer: $("#wants-volunteer").checked,
     afterparty: {
       friday: $("#afterparty-friday").checked,
       saturday: $("#afterparty-saturday").checked,
@@ -235,10 +236,7 @@ function restoreDraft() {
   });
   $("#wants-npc").checked = !!draft.wantsNpc;
   $("#wants-standin").checked = !!draft.wantsStandin;
-  (draft.goldenTicket || []).forEach((name, i) => {
-    const sel = $(`#golden-ticket-${i + 1}`);
-    if (sel && name) sel.value = name;
-  });
+  $("#wants-volunteer").checked = !!draft.wantsVolunteer;
   if (draft.afterparty) {
     // "tak" is an older draft's tri-state value (pre-checkbox redesign) — still
     // treated as checked so an in-progress draft saved before the redesign survives it.
@@ -247,11 +245,12 @@ function restoreDraft() {
   }
 
   // Walidacja względem aktualnych danych: slot albo larp mógł zniknąć z
-  // larps.json od czasu zapisu — odrzuć takie wybory po cichu.
+  // larps.json od czasu zapisu albo stracić wolne miejsca — odrzuć takie
+  // wybory po cichu.
   data.timeslots.forEach((slot) => {
     const picks = (draft.selections && draft.selections[slot.id]) || [];
     selections[slot.id] = picks
-      .filter((p) => p && larpByName(slot, p.name))
+      .filter((p) => p && larpByName(slot, p.name) && !isFull(larpByName(slot, p.name)))
       .map((p) => ({ name: p.name, ticketTier: p.ticketTier || "" }));
   });
 
@@ -323,7 +322,6 @@ async function init() {
   renderPrefs();
   renderTriggers();
   renderCharacterPrefs();
-  renderGoldenTicketOptions();
   restoreDraft(); // ustawia `selections` (z zapisu albo pusto) + odtwarza pola/zaznaczenia
   updateTriggerGroupCounts();
   renderSlots();
@@ -451,32 +449,6 @@ function getCharacterPreferences() {
 }
 
 
-// --- Złoty Bilet: do 3 uszeregowanych wyborów, z pełnej listy larpów -------
-
-function allLarpNames() {
-  return data.timeslots.flatMap((slot) => slot.larps.map((l) => l.name));
-}
-
-function renderGoldenTicketOptions() {
-  const options =
-    `<option value="">— nie dotyczy —</option>` +
-    allLarpNames()
-      .map((name) => `<option value="${esc(name)}">${esc(name)}</option>`)
-      .join("");
-  ["#golden-ticket-1", "#golden-ticket-2", "#golden-ticket-3"].forEach((sel) => {
-    $(sel).innerHTML = options;
-  });
-}
-
-// Puste/nieużyte wybory pomijamy — kolejność zachowana, bez wymuszania
-// unikalności między polami (jeśli ktoś wybierze ten sam larp dwa razy,
-// ekipa i tak przeczyta to jako jeden wybór).
-function getGoldenTicketPriorities() {
-  return ["#golden-ticket-1", "#golden-ticket-2", "#golden-ticket-3"]
-    .map((sel) => $(sel).value)
-    .filter(Boolean);
-}
-
 // --- liczenie dopasowania ---------------------------------------------------
 
 function getRatings() {
@@ -570,6 +542,33 @@ function timeBadgeHTML(larp) {
   return metaBadgeHTML("lc-time", "🕐", larp.time);
 }
 
+// larp.availableSlots = { female, male, unisex } — ile miejsc każdego rodzaju
+// jest jeszcze DOSTĘPNYCH (już po odjęciu posiadaczy Złotych Biletów), a nie
+// pełna obsada larpa. Larpa z samymi zerami nie da się wybrać.
+function slotsAvailable(larp) {
+  const a = larp.availableSlots || {};
+  return (a.female || 0) + (a.male || 0) + (a.unisex || 0);
+}
+
+const isFull = (larp) => !!larp.availableSlots && slotsAvailable(larp) <= 0;
+
+function seatsHTML(larp) {
+  if (!larp.availableSlots) return "";
+  if (isFull(larp)) {
+    return `<div class="lc-full">🔒 Miejsca w tym larpie zostały zajęte przez posiadaczy Złotych Biletów.</div>`;
+  }
+  const a = larp.availableSlots;
+  const split = [
+    ["kobiece", a.female],
+    ["męskie", a.male],
+    ["unisex", a.unisex],
+  ]
+    .filter(([, n]) => n > 0)
+    .map(([label, n]) => `${label}: ${n}`)
+    .join(" · ");
+  return `<div class="lc-seats">👥 Dostępne miejsca: ${split}</div>`;
+}
+
 function ticketSelectHTML(slot, name, ticketTier, i) {
   const options = (data.ticketTiers || [])
     .map(
@@ -605,6 +604,7 @@ function renderSlots() {
                     <span class="lc-name">${esc(pick.name)}${timeBadgeHTML(larp)}${languageBadgeHTML(larp)}</span>
                     <span class="lc-pct">${pct}% · ${likeLabel(pct)}</span>
                   </div>
+                  ${seatsHTML(larp)}
                   ${dislikesHTML(larp, ratings)}
                   ${triggersHTML(larp, myTriggers)}
                   <div class="ticket-row">
@@ -624,20 +624,21 @@ function renderSlots() {
 
       const available = slot.larps
         .filter((l) => !picks.some((p) => p.name === l.name))
-        .map((l) => ({ larp: l, pct: likeliness(l, ratings) }))
-        .sort((a, b) => b.pct - a.pct)
+        .map((l) => ({ larp: l, pct: likeliness(l, ratings), noSeats: isFull(l) }))
+        .sort((a, b) => a.noSeats - b.noSeats || b.pct - a.pct) // pełne na koniec
         .map(
-          ({ larp, pct }) => `<div class="larp-card">
+          ({ larp, pct, noSeats }) => `<div class="larp-card${noSeats ? " is-full" : ""}">
             <div class="lc-body">
               <div class="lc-head">
                 <span class="lc-name">${esc(larp.name)}${timeBadgeHTML(larp)}${languageBadgeHTML(larp)}</span>
                 <span class="lc-pct">${pct}% · ${likeLabel(pct)}</span>
               </div>
               <div class="bar"><i style="width:${pct}%; background:${likelinessColor(pct)}"></i></div>
+              ${seatsHTML(larp)}
               ${dislikesHTML(larp, ratings)}
               ${triggersHTML(larp, myTriggers)}
             </div>
-            <button type="button" class="add" data-action="add" data-slot="${slot.id}" data-name="${esc(larp.name)}" ${full ? "disabled" : ""}>+ Dodaj</button>
+            <button type="button" class="add" data-action="add" data-slot="${slot.id}" data-name="${esc(larp.name)}" ${full || noSeats ? "disabled" : ""}>${noSeats ? "Brak miejsc" : "+ Dodaj"}</button>
           </div>`
         )
         .join("");
@@ -666,6 +667,7 @@ function onSlotAction(e) {
   switch (action) {
     case "add":
       if (picks.length >= MAX_PICKS || at >= 0) return;
+      if (isFull(larpByName(data.timeslots.find((s) => s.id === slotId), name))) return;
       picks.push({ name, ticketTier: "" });
       setStatus("");
       break;
@@ -717,7 +719,7 @@ function collect() {
   });
 
   return {
-    meta: { event: cfg.eventName || "", submittedAt: new Date().toISOString(), schemaVersion: 9 },
+    meta: { event: cfg.eventName || "", submittedAt: new Date().toISOString(), schemaVersion: 10 },
     identity: {
       firstName: $("#first-name").value.trim(),
       lastName: $("#last-name").value.trim(),
@@ -729,7 +731,7 @@ function collect() {
     characterPreferences: getCharacterPreferences(),
     wantsNpc: $("#wants-npc").checked,
     wantsStandin: $("#wants-standin").checked,
-    goldenTicket: { priorities: getGoldenTicketPriorities() },
+    wantsVolunteer: $("#wants-volunteer").checked,
     afterparty: {
       friday: $("#afterparty-friday").checked,
       saturday: $("#afterparty-saturday").checked,
@@ -745,6 +747,10 @@ function collect() {
     preferences: ratings,
     triggers: myTriggers,
     choices,
+    // Czytelne nazwy slotów i biletów dla maila z potwierdzeniem — backend
+    // nie ma dostępu do larps.json, a tak nie trzyma drugiej kopii etykiet.
+    timeslotLabels: Object.fromEntries(data.timeslots.map((s) => [s.id, `${s.name} ${s.time}`])),
+    ticketTierLabels: Object.fromEntries((data.ticketTiers || []).map((t) => [t.id, t.label])),
   };
 }
 
@@ -848,13 +854,11 @@ async function onSubmit(e) {
       <a href="mailto:${esc((cfg.controller || {}).email || "")}">${esc((cfg.controller || {}).email || "")}</a>.</p></section>`;
   } catch (err) {
     btn.disabled = false;
-    const email = (cfg.controller || {}).email || "";
-    setStatus(
-      "Wysyłka nie powiodła się: " + err.message +
-        `. Kliknij „Pobierz moje odpowiedzi” i wyślij pobrany plik na ${email}` +
-        " — inaczej zgłoszenie się nie zapisze.",
-      "err"
-    );
+    submitFailures += 1;
+    // fetch() itself rejects with a TypeError (in English) when the request
+    // never reached the server — e.g. no internet connection.
+    const reason = err instanceof TypeError ? "brak połączenia z serwerem" : err.message;
+    setStatus(failureAdvice(submitFailures, reason, (cfg.controller || {}).email || ""), "err");
   }
 }
 

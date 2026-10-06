@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=2026-10-07" />
 </head>
 <body>
   <div class="masthead">
@@ -113,28 +113,6 @@
       </div>
       <div id="slots"></div>
 
-      <!-- Złoty Bilet -->
-      <section class="card">
-        <h2>Złoty Bilet</h2>
-        <p class="blurb">
-          Nieobowiązkowe, opcja tymczasowa na ten sezon. Jeśli masz Złoty Bilet,
-          wybierz do 3 larpów w kolejności, na który chciał*byś go wykorzystać —
-          ekipa spróbuje przydzielić Ci pierwszy z listy, który da się jeszcze obsadzić.
-        </p>
-        <div class="q">
-          <label class="q-label" for="golden-ticket-1">1. wybór</label>
-          <select id="golden-ticket-1"></select>
-        </div>
-        <div class="q">
-          <label class="q-label" for="golden-ticket-2">2. wybór</label>
-          <select id="golden-ticket-2"></select>
-        </div>
-        <div class="q">
-          <label class="q-label" for="golden-ticket-3">3. wybór</label>
-          <select id="golden-ticket-3"></select>
-        </div>
-      </section>
-
       <!-- NPC -->
       <section class="card">
         <h2>NPC</h2>
@@ -156,6 +134,17 @@
         <label class="checkline">
           <input type="checkbox" id="wants-standin" />
           <span>Chcę zostać larpowym komandosem</span>
+        </label>
+      </section>
+
+      <!-- Wolontariusze -->
+      <section class="card">
+        <h2>Wolontariusze</h2>
+        <p class="blurb">Nieobowiązkowe. Szukamy osób, które pomogą nam przy
+          festiwalu w czasie, gdy nie grają w żadnym larpie.</p>
+        <label class="checkline">
+          <input type="checkbox" id="wants-volunteer" />
+          <span>Chcę pomagać jako wolontariusz*ka, gdy nie gram w żadnym larpie</span>
         </label>
       </section>
 
@@ -379,8 +368,12 @@
     </footer>
   </main>
 
-  <script src="config.js"></script>
-  <script src="submit-outcome.js"></script>
-  <script src="app.js"></script>
+  <!-- ?v= forces browsers to fetch a matching set of files after a deploy
+       (GitHub Pages lets them cache each file for ~10 min on its own, which
+       can pair a new app.js with an old submit-outcome.js). Bump it on every
+       deploy that changes any of these files. -->
+  <script src="config.js?v=2026-10-07"></script>
+  <script src="submit-outcome.js?v=2026-10-07"></script>
+  <script src="app.js?v=2026-10-07"></script>
 </body>
 </html>

@@ -134,7 +134,10 @@ Everything content-related lives here; no code changes needed.
   per-slot-pick ticket dropdown. `price` is a display string only — this
   form has no payment processing.
 - `timeslots` — `[{ id, name, time, larps: [...] }]`. Each larp has
-  `name`, `players`, `tags` (ids from `preferenceTags`), `triggers`
+  `name`, `availableSlots` (`{ female, male, unisex }` — how many slots of
+  each kind are still available after Golden Ticket holders, not the full
+  cast; all zeros means the larp is full and can't be picked), `tags` (ids from
+  `preferenceTags`), `triggers`
   (plain strings, matching one from some group in `triggerGroups`), an
   optional `language` (a free-form string — omit entirely for a
   Polish-language larp, don't set it to a "Polski" value), and an optional
@@ -156,12 +159,12 @@ Larps in a slot are sorted by this, so the best matches float to the top.
 
 ```jsonc
 {
-  "meta": { "event", "submittedAt", "schemaVersion": 9 },
+  "meta": { "event", "submittedAt", "schemaVersion": 10 },
   "identity": { "firstName", "lastName", "preferredAddress", "email", "phone", "birthdate" },
   "characterPreferences": ["Kobiece", ...],
   "wantsNpc": false,
   "wantsStandin": false,   // "Komandos larpowy" — willing to fill in last-minute for a dropout
-  "goldenTicket": { "priorities": ["<larp name>", ...] },   // 0-3, temporary feature
+  "wantsVolunteer": false, // willing to volunteer at the festival while not playing any larp
   "afterparty": { "friday": true, "saturday": false },      // plain optional booleans
   "consent": {
     "rodoNoticeRead": true, "strefazajecInformed": true, "rulesRead": true,
@@ -175,7 +178,9 @@ Larps in a slot are sorted by this, so the best matches float to the top.
     "nd_rano": [
       { "priority": 1, "name", "ticketTier": "wsparcia", "likeliness": 83, "triggerConflicts": [...] }
     ]
-  }
+  },
+  "timeslotLabels": { "nd_rano": "Niedziela rano 10:00–15:00 (5h)", ... },  // for the confirmation email
+  "ticketTierLabels": { "wsparcia": "Bilet Wsparcia", ... }
 }
 ```
 

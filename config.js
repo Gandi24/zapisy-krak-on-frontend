@@ -18,8 +18,7 @@ window.CONFIG = {
   // Biletu"). Pokazuje się niezależnie od submissionsOpen — na zielono, gdy
   // submissionsOpen is true (informacyjny), na czerwono, gdy false (blokada).
   // Zostaw "", żeby nic nie pokazywać.
-  noticeMessage:
-    "Zapisy otwarte dla posiadaczy Złotego Biletu. Pełne zapisy zostaną otwarte 7 października.",
+  noticeMessage: "",
 
   // Link do strony z pełnymi opisami larpów i harmonogramem wydarzenia.
   // Zostaw "", jeśli nie masz jeszcze takiej strony — formularz pokaże
