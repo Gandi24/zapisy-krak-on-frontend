@@ -805,7 +805,10 @@ function validate() {
 async function onSubmit(e) {
   e.preventDefault();
   if (cfg.submissionsOpen === false) {
-    setStatus(`Zapisy jeszcze nie są otwarte — wróć ${cfg.submissionsOpenAt || "wkrótce"}.`, "err");
+    setStatus(
+      cfg.noticeMessage || `Zapisy jeszcze nie są otwarte — wróć ${cfg.submissionsOpenAt || "wkrótce"}.`,
+      "err",
+    );
     return;
   }
   const bad = validate();
