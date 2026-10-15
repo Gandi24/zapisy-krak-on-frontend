@@ -579,7 +579,7 @@
           "name": "Better love story than Twilight",
           "availableSlots": {
             "female": 0,
-            "male": 1,
+            "male": 0,
             "unisex": 9
           },
           "tags": [
@@ -783,7 +783,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 5
+            "unisex": 4
           },
           "tags": [
             "tajemnica",
