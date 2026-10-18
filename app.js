@@ -555,7 +555,7 @@ const isFull = (larp) => !!larp.availableSlots && slotsAvailable(larp) <= 0;
 function seatsHTML(larp) {
   if (!larp.availableSlots) return "";
   if (isFull(larp)) {
-    return `<div class="lc-full">🔒 Miejsca w tym larpie zostały zajęte przez posiadaczy Złotych Biletów.</div>`;
+    return `<div class="lc-full">🔒 Miejsca w tym larpie zostały zajęte</div>`;
   }
   const a = larp.availableSlots;
   const split = [
