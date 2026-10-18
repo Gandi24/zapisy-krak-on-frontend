@@ -337,7 +337,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 32
+            "unisex": 9
           },
           "time": "17:00–22:00 (5h)",
           "tags": [
@@ -356,7 +356,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 3
+            "unisex": 0
           },
           "tags": [
             "wojna_okupacja",
@@ -373,7 +373,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 12
+            "unisex": 0
           },
           "tags": [
             "sensualnosc",
@@ -399,7 +399,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 6
+            "unisex": 0
           },
           "tags": [
             "groza",
@@ -424,9 +424,9 @@
         {
           "name": "Awatar: Rozdroża",
           "availableSlots": {
-            "female": 4,
-            "male": 3,
-            "unisex": 4
+            "female": 0,
+            "male": 0,
+            "unisex": 0
           },
           "tags": [
             "emocje",
@@ -446,7 +446,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 8
+            "unisex": 0
           },
           "tags": [
             "cyberpunk",
@@ -461,8 +461,8 @@
         {
           "name": "Headline",
           "availableSlots": {
-            "female": 2,
-            "male": 4,
+            "female": 0,
+            "male": 0,
             "unisex": 0
           },
           "tags": [
@@ -500,8 +500,8 @@
         {
           "name": "Ortalion",
           "availableSlots": {
-            "female": 6,
-            "male": 10,
+            "female": 0,
+            "male": 0,
             "unisex": 0
           },
           "tags": [
@@ -532,7 +532,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 18
+            "unisex": 0
           },
           "tags": [
             "scifi",
@@ -553,9 +553,9 @@
         {
           "name": "(A)Gnosis",
           "availableSlots": {
-            "female": 5,
-            "male": 5,
-            "unisex": 5
+            "female": 0,
+            "male": 0,
+            "unisex": 0
           },
           "tags": [
             "duchowosc",
@@ -580,7 +580,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 9
+            "unisex": 0
           },
           "tags": [
             "swiat_mroku",
@@ -599,7 +599,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 28
+            "unisex": 11
           },
           "tags": [
             "taniec_ruch",
@@ -620,7 +620,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 7
+            "unisex": 0
           },
           "tags": [
             "emocje",
@@ -634,9 +634,9 @@
         {
           "name": "Nie nasza wojna",
           "availableSlots": {
-            "female": 5,
-            "male": 3,
-            "unisex": 2
+            "female": 0,
+            "male": 0,
+            "unisex": 0
           },
           "tags": [
             "emocje",
@@ -658,7 +658,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 12
+            "unisex": 0
           },
           "tags": [
             "polityka",
@@ -691,9 +691,9 @@
         {
           "name": "Ławnicy",
           "availableSlots": {
-            "female": 2,
-            "male": 4,
-            "unisex": 3
+            "female": 0,
+            "male": 0,
+            "unisex": 0
           },
           "tags": [
             "emocje",
@@ -724,7 +724,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 14
+            "unisex": 11
           },
           "language": "Białoruski",
           "tags": [
@@ -742,8 +742,8 @@
         {
           "name": "Hipisi, pigułki i przytulanie",
           "availableSlots": {
-            "female": 4,
-            "male": 4,
+            "female": 0,
+            "male": 0,
             "unisex": 0
           },
           "tags": [
@@ -765,7 +765,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 20
+            "unisex": 9
           },
           "tags": [
             "emocje",
@@ -783,7 +783,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 4
+            "unisex": 0
           },
           "tags": [
             "tajemnica",
@@ -802,7 +802,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 8
+            "unisex": 0
           },
           "tags": [
             "trudne_wybory",
@@ -824,7 +824,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 19
+            "unisex": 0
           },
           "tags": [
             "taniec_ruch",
