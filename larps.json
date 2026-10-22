@@ -337,7 +337,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 9
+            "unisex": 10
           },
           "time": "17:00–22:00 (5h)",
           "tags": [
@@ -356,7 +356,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "wojna_okupacja",
@@ -373,7 +373,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 3
           },
           "tags": [
             "sensualnosc",
@@ -399,7 +399,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 2
           },
           "tags": [
             "groza",
@@ -463,7 +463,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "emocje",
@@ -500,7 +500,7 @@
         {
           "name": "Ortalion",
           "availableSlots": {
-            "female": 0,
+            "female": 1,
             "male": 0,
             "unisex": 0
           },
@@ -532,7 +532,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 4
           },
           "tags": [
             "scifi",
@@ -555,7 +555,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "duchowosc",
@@ -580,7 +580,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 2
           },
           "tags": [
             "swiat_mroku",
@@ -599,7 +599,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 11
+            "unisex": 15
           },
           "tags": [
             "taniec_ruch",
@@ -620,7 +620,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "emocje",
@@ -742,8 +742,8 @@
         {
           "name": "Hipisi, pigułki i przytulanie",
           "availableSlots": {
-            "female": 0,
-            "male": 0,
+            "female": 2,
+            "male": 1,
             "unisex": 0
           },
           "tags": [
@@ -765,7 +765,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 9
+            "unisex": 12
           },
           "tags": [
             "emocje",
@@ -802,7 +802,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 2
           },
           "tags": [
             "trudne_wybory",
@@ -824,7 +824,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "taniec_ruch",
