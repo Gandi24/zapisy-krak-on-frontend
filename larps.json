@@ -282,24 +282,9 @@
   ],
   "ticketTiers": [
     {
-      "id": "tworcy",
-      "label": "Bilet dla Twórców (MG, opiekunów larpowych)",
+      "id": "3_tura",
+      "label": "3 tura",
       "price": "40 zł"
-    },
-    {
-      "id": "spoleczny",
-      "label": "Bilet Społeczny",
-      "price": "40 zł"
-    },
-    {
-      "id": "standardowy",
-      "label": "Bilet Standardowy",
-      "price": "100 zł"
-    },
-    {
-      "id": "wsparcia",
-      "label": "Bilet Wsparcia",
-      "price": "140 zł"
     }
   ],
   "timeslots": [
@@ -337,7 +322,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 10
+            "unisex": 8
           },
           "time": "17:00–22:00 (5h)",
           "tags": [
@@ -356,7 +341,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 1
+            "unisex": 0
           },
           "tags": [
             "wojna_okupacja",
@@ -373,7 +358,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 3
+            "unisex": 0
           },
           "tags": [
             "sensualnosc",
@@ -399,7 +384,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 2
+            "unisex": 0
           },
           "tags": [
             "groza",
@@ -463,7 +448,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 1
+            "unisex": 0
           },
           "tags": [
             "emocje",
@@ -532,7 +517,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 4
+            "unisex": 0
           },
           "tags": [
             "scifi",
@@ -555,7 +540,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 1
+            "unisex": 0
           },
           "tags": [
             "duchowosc",
@@ -580,7 +565,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 2
+            "unisex": 0
           },
           "tags": [
             "swiat_mroku",
@@ -597,9 +582,9 @@
         {
           "name": "Drugi raz pierwszy raz",
           "availableSlots": {
-            "female": 0,
+            "female": 7,
             "male": 0,
-            "unisex": 15
+            "unisex": 0
           },
           "tags": [
             "taniec_ruch",
@@ -620,7 +605,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 1
+            "unisex": 0
           },
           "tags": [
             "emocje",
@@ -724,7 +709,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 11
+            "unisex": 9
           },
           "language": "Białoruski",
           "tags": [
@@ -742,8 +727,8 @@
         {
           "name": "Hipisi, pigułki i przytulanie",
           "availableSlots": {
-            "female": 2,
-            "male": 1,
+            "female": 0,
+            "male": 0,
             "unisex": 0
           },
           "tags": [
@@ -765,7 +750,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 12
+            "unisex": 9
           },
           "tags": [
             "emocje",
@@ -802,7 +787,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 2
+            "unisex": 0
           },
           "tags": [
             "trudne_wybory",
@@ -824,7 +809,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 1
+            "unisex": 0
           },
           "tags": [
             "taniec_ruch",
