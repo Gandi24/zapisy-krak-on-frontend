@@ -485,7 +485,7 @@
         {
           "name": "Ortalion",
           "availableSlots": {
-            "female": 1,
+            "female": 0,
             "male": 0,
             "unisex": 0
           },
@@ -709,7 +709,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 9
+            "unisex": 8
           },
           "language": "Białoruski",
           "tags": [
