@@ -322,7 +322,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 8
+            "unisex": 6
           },
           "time": "17:00–22:00 (5h)",
           "tags": [
@@ -582,7 +582,7 @@
         {
           "name": "Drugi raz pierwszy raz",
           "availableSlots": {
-            "female": 7,
+            "female": 5,
             "male": 0,
             "unisex": 0
           },
@@ -750,7 +750,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 9
+            "unisex": 7
           },
           "tags": [
             "emocje",
