@@ -322,7 +322,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 6
+            "unisex": 4
           },
           "time": "17:00–22:00 (5h)",
           "tags": [
@@ -750,7 +750,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 7
+            "unisex": 8
           },
           "tags": [
             "emocje",
