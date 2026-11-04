@@ -322,7 +322,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 4
+            "unisex": 5
           },
           "time": "17:00–22:00 (5h)",
           "tags": [
@@ -358,7 +358,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 2
+            "unisex": 0
           },
           "tags": [
             "sensualnosc",
@@ -517,7 +517,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "scifi",
@@ -582,7 +582,7 @@
         {
           "name": "Drugi raz pierwszy raz",
           "availableSlots": {
-            "female": 5,
+            "female": 6,
             "male": 0,
             "unisex": 0
           },
