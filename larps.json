@@ -409,7 +409,7 @@
         {
           "name": "Awatar: Rozdroża",
           "availableSlots": {
-            "female": 1,
+            "female": 0,
             "male": 0,
             "unisex": 0
           },
