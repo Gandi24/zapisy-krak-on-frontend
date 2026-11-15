@@ -643,7 +643,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "polityka",
