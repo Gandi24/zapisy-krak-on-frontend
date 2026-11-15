@@ -728,7 +728,7 @@
           "name": "Hipisi, pigułki i przytulanie",
           "availableSlots": {
             "female": 0,
-            "male": 0,
+            "male": 1,
             "unisex": 0
           },
           "tags": [
