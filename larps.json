@@ -322,7 +322,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 5
+            "unisex": 3
           },
           "time": "17:00–22:00 (5h)",
           "tags": [
@@ -643,7 +643,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 1
+            "unisex": 0
           },
           "tags": [
             "polityka",
@@ -728,7 +728,7 @@
           "name": "Hipisi, pigułki i przytulanie",
           "availableSlots": {
             "female": 0,
-            "male": 1,
+            "male": 0,
             "unisex": 0
           },
           "tags": [
