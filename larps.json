@@ -643,7 +643,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 2
           },
           "tags": [
             "polityka",
@@ -787,7 +787,7 @@
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
             "trudne_wybory",
