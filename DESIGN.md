@@ -231,6 +231,17 @@ entries — not fine at meetup-registration-app scale).
   shape). Price is a display string, not a machine-parsed amount — this
   system has no payment processing; ticket choice is informational for the
   organiser same as everything else.
+- `larps[].extraTicketTiers` (optional, same `{ id, label, price }` shape)
+  adds tiers offered **only for that larp**, on top of the global
+  `ticketTiers` (`ticketTiersFor(larp)` in `app.js`). Currently used for
+  Gra ludowa's free ticket (`0_pln`, "Bilet bezpłatny", 0 zł). They live on
+  the larp object rather than in the global list on purpose: a browser
+  still running an older cached `app.js` doesn't know the field and simply
+  ignores it, so a per-larp tier can never leak into other larps' dropdowns.
+  A pick whose `ticketTier` isn't offered for its larp (`isTierAllowed()`)
+  counts as missing: a restored draft drops it, and submit validation flags
+  it. `ticketTierLabels` in the payload includes these extra tiers too, so
+  the confirmation email can name them.
 - Currently 4 timeslots holding Krak-ON's real 2026 programme (26 larps) —
   `preferenceTags` (32 entries) and `triggerGroups` (11 groups, 77 triggers)
   were unified together with the organiser from that event's actual
@@ -439,7 +450,8 @@ priority order, not match %.
   the slot tray hits 4.
 - Reordering is via ▲/▼ (swap with neighbor); ✕ removes and reflows.
 - Each pick carries its own **ticket tier** (`selections[slotId][i].ticketTier`,
-  a `ticketTiers[].id`), chosen from a `<select>` in the tray item. Unset by
+  a `ticketTiers[].id` or one of that larp's `extraTicketTiers[].id`), chosen
+  from a `<select>` in the tray item that lists only the tiers offered for that larp. Unset by
   default; submit is blocked until every current pick has one.
 - No cross-slot exclusivity — a player may pick larps that would clock-conflict
   outside this tool; the sign-on has no concept of "you can only attend one
@@ -461,7 +473,8 @@ priority order, not match %.
   shared by both via `validateYesOtherAnswer`/`wireYesOtherField`). The
   *content* isn't validated: "Inne" with an empty free-text field still counts
   as answered — only an *answer* is required, not agreement.
-- Every current slot pick has a `ticketTier` selected (checked per slot, in
+- Every current slot pick has a `ticketTier` selected that is offered for
+  that larp (checked per slot, in
   tray-item DOM order — see the `selections` bullet above for why by
   position, not by name).
 
@@ -548,7 +561,7 @@ have changed since the draft was saved).
       {
         "priority": 1,                             // 1-based, matches tray order
         "name": "<larp name>",
-        "ticketTier": "<ticketTiers[].id>",         // null only if collected pre-validation
+        "ticketTier": "<ticketTiers[].id | larp's extraTicketTiers[].id>", // null only if collected pre-validation
         "likeliness": 83,                           // match % at submit time
         "triggerConflicts": ["<trigger string>", ...],
         "dislikes": ["<tag label>", ...]             // -2-rated tags on this larp
@@ -558,7 +571,7 @@ have changed since the draft was saved).
   // Readable names for every slot/tier in larps.json, for the confirmation
   // email — the backend has no access to larps.json, so it reads them here.
   "timeslotLabels": { "<slotId>": "<name> <time>", ... },
-  "ticketTierLabels": { "<tierId>": "<label>", ... }
+  "ticketTierLabels": { "<tierId>": "<label>", ... }  // global + every larp's extraTicketTiers
 }
 ```
 

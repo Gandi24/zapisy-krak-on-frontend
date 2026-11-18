@@ -251,7 +251,10 @@ function restoreDraft() {
     const picks = (draft.selections && draft.selections[slot.id]) || [];
     selections[slot.id] = picks
       .filter((p) => p && larpByName(slot, p.name) && !isFull(larpByName(slot, p.name)))
-      .map((p) => ({ name: p.name, ticketTier: p.ticketTier || "" }));
+      .map((p) => ({
+        name: p.name,
+        ticketTier: isTierAllowed(larpByName(slot, p.name), p.ticketTier) ? p.ticketTier : "",
+      }));
   });
 
   showDraftBadge(new Date(draft.savedAt));
@@ -552,6 +555,17 @@ function slotsAvailable(larp) {
 
 const isFull = (larp) => !!larp.availableSlots && slotsAvailable(larp) <= 0;
 
+// Bilety do wyboru dla konkretnego larpa: globalne ticketTiers + ewentualne
+// larp.extraTicketTiers (np. bezpłatny bilet tylko dla Gry ludowej). Dodatkowe
+// bilety siedzą w obiekcie larpa, a nie w globalnej liście, żeby starszy,
+// zcache'owany app.js (który extraTicketTiers nie zna) nigdy nie pokazał ich
+// przy innych larpach.
+function ticketTiersFor(larp) {
+  return [...(data.ticketTiers || []), ...((larp && larp.extraTicketTiers) || [])];
+}
+
+const isTierAllowed = (larp, tierId) => !!tierId && ticketTiersFor(larp).some((t) => t.id === tierId);
+
 function seatsHTML(larp) {
   if (!larp.availableSlots) return "";
   if (isFull(larp)) {
@@ -569,8 +583,9 @@ function seatsHTML(larp) {
   return `<div class="lc-seats">👥 Dostępne miejsca: ${split}</div>`;
 }
 
-function ticketSelectHTML(slot, name, ticketTier, i) {
-  const options = (data.ticketTiers || [])
+function ticketSelectHTML(slot, larp, ticketTier, i) {
+  const name = larp.name;
+  const options = ticketTiersFor(larp)
     .map(
       (t) => `<option value="${esc(t.id)}" ${t.id === ticketTier ? "selected" : ""}>${esc(t.label)} (${esc(t.price)})</option>`
     )
@@ -609,7 +624,7 @@ function renderSlots() {
                   ${triggersHTML(larp, myTriggers)}
                   <div class="ticket-row">
                     <label>Bilet <span class="req">*</span></label>
-                    ${ticketSelectHTML(slot, pick.name, pick.ticketTier, i)}
+                    ${ticketSelectHTML(slot, larp, pick.ticketTier, i)}
                   </div>
                 </div>
                 <div class="ti-ctl">
@@ -750,7 +765,11 @@ function collect() {
     // Czytelne nazwy slotów i biletów dla maila z potwierdzeniem — backend
     // nie ma dostępu do larps.json, a tak nie trzyma drugiej kopii etykiet.
     timeslotLabels: Object.fromEntries(data.timeslots.map((s) => [s.id, `${s.name} ${s.time}`])),
-    ticketTierLabels: Object.fromEntries((data.ticketTiers || []).map((t) => [t.id, t.label])),
+    ticketTierLabels: Object.fromEntries(
+      [...(data.ticketTiers || []), ...data.timeslots.flatMap((s) => s.larps.flatMap((l) => l.extraTicketTiers || []))].map(
+        (t) => [t.id, t.label]
+      )
+    ),
   };
 }
 
@@ -764,7 +783,7 @@ function revalidateTickets() {
     const selects = document.querySelectorAll(`.slot[data-slot-id="${slot.id}"] .ticket-select`);
     selections[slot.id].forEach((pick, i) => {
       const sel = selects[i];
-      const ok = !!pick.ticketTier;
+      const ok = isTierAllowed(larpByName(slot, pick.name), pick.ticketTier);
       sel.classList.toggle("bad", !ok);
       if (ok) sel.removeAttribute("aria-invalid");
       else sel.setAttribute("aria-invalid", "true");

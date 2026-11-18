@@ -711,6 +711,13 @@
             "male": 0,
             "unisex": 8
           },
+          "extraTicketTiers": [
+            {
+              "id": "0_pln",
+              "label": "Bilet bezpłatny",
+              "price": "0 zł"
+            }
+          ],
           "language": "Białoruski",
           "tags": [
             "historia",
