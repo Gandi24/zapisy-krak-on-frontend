@@ -674,27 +674,24 @@
           ]
         },
         {
-          "name": "Ławnicy",
+          "name": "Dylemat Więźnia",
           "availableSlots": {
             "female": 0,
             "male": 0,
-            "unisex": 0
+            "unisex": 1
           },
           "tags": [
-            "emocje",
-            "tajemnica",
+            "trudne_wybory",
+            "polityka",
             "prl"
           ],
           "triggers": [
-            "Śmierć",
-            "Morderstwo / zabójstwo",
-            "Gore",
-            "Narkotyki / używki",
-            "Papierosy",
+            "Represje polityczne",
+            "Zdrada",
+            "Manipulacja",
+            "Bezsilność",
             "Alkohol / alkoholizm",
-            "Dramaty rodzinne",
-            "Rasizm",
-            "Dyskryminacja"
+            "Dramaty rodzinne"
           ]
         }
       ]
@@ -714,7 +711,7 @@
           "extraTicketTiers": [
             {
               "id": "0_pln",
-              "label": "Bilet bezpłatny",
+              "label": "3 tura",
               "price": "0 zł"
             }
           ],
