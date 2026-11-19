@@ -234,7 +234,7 @@ entries — not fine at meetup-registration-app scale).
 - `larps[].extraTicketTiers` (optional, same `{ id, label, price }` shape)
   adds tiers offered **only for that larp**, on top of the global
   `ticketTiers` (`ticketTiersFor(larp)` in `app.js`). Currently used for
-  Gra ludowa's free ticket (`0_pln`, "3 tura", 0 zł). They live on
+  the free ticket (`0_pln`, "3 tura", 0 zł) on Gra ludowa, Star Wars: Cienie Pokoju and Dylemat Więźnia. They live on
   the larp object rather than in the global list on purpose: a browser
   still running an older cached `app.js` doesn't know the field and simply
   ignores it, so a per-larp tier can never leak into other larps' dropdowns.
