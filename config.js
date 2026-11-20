@@ -11,7 +11,7 @@ window.CONFIG = {
   // Ustaw na false, żeby zablokować formularz przed oficjalnym otwarciem
   // zapisów — pokaże się wtedy tylko komunikat z submissionsOpenAt zamiast
   // pól do wypełnienia.
-  submissionsOpen: true,
+  submissionsOpen: false,
   submissionsOpenAt: "7 października",
 
   // Nieobowiązkowy baner nad formularzem (np. "otwarte tylko dla Złotego
@@ -19,7 +19,7 @@ window.CONFIG = {
   // submissionsOpen is true (informacyjny), na czerwono, gdy false (blokada).
   // Zostaw "", żeby nic nie pokazywać.
   noticeMessage:
-    "Trwa trzecia tura zapisów na ostatnie wolne miejsca. Wszystkie miejsca w tej turze są w cenie 40 zł.",
+    "Zapisy zostały zakończone. Dziękujemy za wszystkie zgłoszenia!",
 
   // Link do strony z pełnymi opisami larpów i harmonogramem wydarzenia.
   // Zostaw "", jeśli nie masz jeszcze takiej strony — formularz pokaże
